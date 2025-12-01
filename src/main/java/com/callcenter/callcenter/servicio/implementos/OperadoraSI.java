@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public class OperadoraSI implements OperadoraServicio {
-
+    //clase abstracta para cada servicio
     private final OperadoraR repo;
 
     public OperadoraSI(OperadoraR repo) {
@@ -29,6 +29,19 @@ public class OperadoraSI implements OperadoraServicio {
         return repo.findById(id).orElse(null);
     }
 
+    @Override
+    public Operadora actualizar(Long id, Operadora o){
+        //busca un existente por id
+        Operadora existente = repo.findById(id).orElse(null);
+        if (existente == null) return null;
+
+        existente.setNombre(o.getNombre());
+        existente.setApellido(o.getApellido());
+        existente.setCodigo(o.getCodigo());
+        existente.setTotalVentas(o.getTotalVentas());
+
+        return repo.save(existente);
+    }
     @Override
     public void eliminar(Long id) {
         repo.deleteById(id);

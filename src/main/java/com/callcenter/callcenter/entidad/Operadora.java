@@ -4,7 +4,7 @@ import java.util.List;
 
 @Entity
 public class Operadora {
-
+//la persona que atiende las llamadas
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +15,7 @@ public class Operadora {
     private int totalVentas = 0;
 
     @OneToMany(mappedBy = "operadora", cascade = CascadeType.ALL)
+    //sabe cuántas llamadas realizó, ventas, calcula comisiones y reportes
     private List<Llamada> llamadas;
 
     public Long getId() {

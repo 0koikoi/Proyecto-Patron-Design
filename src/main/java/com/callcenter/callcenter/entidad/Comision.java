@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Comision {
-
+//pagos adicionales por venta hecha
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,16 +12,18 @@ public class Comision {
     private double totalComision;
 
     @OneToOne
+    //cada operadora puede tener un monto de comisión
+
     @JoinColumn(name = "operadora_id")
-    private Operadora operadora;
+    private Operadora operadora; //asocia a la operadora con su monto de comisión respectivo
 
     public Long getId() {
         return id;
-    }
+    } //id
 
     public double getPorcentaje() {
         return porcentaje;
-    }
+    } //porcentaje de comision
 
     public void setPorcentaje(double porcentaje) {
         this.porcentaje = porcentaje;
@@ -29,7 +31,7 @@ public class Comision {
 
     public double getTotalComision() {
         return totalComision;
-    }
+    } //total de la comisión
 
     public void setTotalComision(double totalComision) {
         this.totalComision = totalComision;
@@ -37,7 +39,7 @@ public class Comision {
 
     public Operadora getOperadora() {
         return operadora;
-    }
+    } //operadora
 
     public void setOperadora(Operadora operadora) {
         this.operadora = operadora;

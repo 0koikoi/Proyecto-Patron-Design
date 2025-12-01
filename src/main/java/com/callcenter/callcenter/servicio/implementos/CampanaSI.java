@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public class CampanaSI implements CampanaServicio {
-
+    //clase abstracta para cada servicio
     private final CampanaR repo;
 
     public CampanaSI(CampanaR repo) {
@@ -27,6 +27,20 @@ public class CampanaSI implements CampanaServicio {
     @Override
     public Campana buscarPorId(Long id) {
         return repo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Campana actualizar(Long id, Campana c){
+        //busca un existente por id
+        Campana existente = repo.findById(id).orElse(null);
+        if (existente == null) return null;
+
+        //actualiza campos
+        existente.setNombre(c.getNombre());
+        existente.setTipo(c.getTipo());
+
+        //guarda
+        return repo.save(existente); //repetir con todo lloro
     }
 
     @Override

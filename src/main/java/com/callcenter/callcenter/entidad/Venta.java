@@ -3,15 +3,16 @@ import jakarta.persistence.*;
 
 @Entity
 public class Venta {
-
+//ventas hechas durante llamada
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipoServicio; // postpago, internet, tv, renovacion
+    private String tipoServicio; //postpago, internet, tv, renovacion
     private double monto;
 
     @OneToOne
+    //una venta proviene de una llamada
     @JoinColumn(name = "llamada_id")
     private Llamada llamada;
 

@@ -6,5 +6,6 @@ public interface VentaServicio {
     List<Venta> listar();
     Venta guardar(Venta v);
     Venta buscarPorId(Long id);
+    Venta actualizar(Long id, Venta v);
     void eliminar(Long id);
 }

@@ -9,16 +9,18 @@ public class Llamada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipo; // entrante o saliente
+    private String tipo; //entrante o saliente
     private LocalDateTime fecha;
-    private String estado; // Strategy/State aplicable
+    private String estado; //strategy
     private boolean huboVenta = false;
 
     @ManyToOne
+    //cada operadora puede tener muchas llamadas
     @JoinColumn(name = "operadora_id")
     private Operadora operadora;
 
     @ManyToOne
+    //cada campaña puede tener muchas llamadas
     @JoinColumn(name = "campana_id")
     private Campana campana;
 
