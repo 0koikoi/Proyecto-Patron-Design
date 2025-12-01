@@ -1,6 +1,12 @@
 package com.callcenter.callcenter.entidad;
-import jakarta.persistence.*;
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Operadora {
@@ -12,6 +18,7 @@ public class Operadora {
     private String nombre;
     private String apellido;
     private String codigo;
+    private String extension;
     private int totalVentas = 0;
 
     @OneToMany(mappedBy = "operadora", cascade = CascadeType.ALL)
@@ -53,4 +60,11 @@ public class Operadora {
     public void setTotalVentas(int totalVentas) {
         this.totalVentas = totalVentas;
     }
+    public String getExtension() {
+    return extension;
+}
+
+public void setExtension(String extension) {
+    this.extension = extension;
+}
 }

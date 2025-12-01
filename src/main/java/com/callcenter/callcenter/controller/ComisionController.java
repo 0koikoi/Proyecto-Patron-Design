@@ -11,7 +11,8 @@ public class ComisionController {
     @RestController
     @RequestMapping("/api/comision")
     @CrossOrigin("*") // Habilita CORS
-    public class ComisionController {
+    
+    public class ComisionController{
 
         private final ComisionServicio servicio;
 

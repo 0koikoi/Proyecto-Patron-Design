@@ -1,5 +1,5 @@
 package com.callcenter.callcenter.servicio.implementos;
-import com.callcenter.callcenter.entidad.Campana;
+
 import com.callcenter.callcenter.entidad.Llamada;
 import com.callcenter.callcenter.repositorio.LlamadaR;
 import com.callcenter.callcenter.servicio.LlamadaServicio;
@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LlamadaSI implements LlamadaServicio{
-    //clase abstracta para cada servicio
+
+public class LlamadaSI implements LlamadaServicio {
+
     private final LlamadaR repo;
 
-    public LlamadaSI (LlamadaR repo) {
+    public LlamadaSI(LlamadaR repo) {
         this.repo = repo;
     }
 
@@ -31,8 +32,7 @@ public class LlamadaSI implements LlamadaServicio{
     }
 
     @Override
-    public Llamada actualizar(Long id, Llamada l){
-        //busca un existente por id
+    public Llamada actualizar(Long id, Llamada l) {
         Llamada existente = repo.findById(id).orElse(null);
         if (existente == null) return null;
 
@@ -40,13 +40,23 @@ public class LlamadaSI implements LlamadaServicio{
         existente.setFecha(l.getFecha());
         existente.setEstado(l.getEstado());
         existente.setHuboVenta(l.isHuboVenta());
+        existente.setDuracion(l.getDuracion());
         existente.setOperadora(l.getOperadora());
         existente.setCampana(l.getCampana());
 
         return repo.save(existente);
     }
+
     @Override
     public void eliminar(Long id) {
         repo.deleteById(id);
     }
+
+    @Override
+public List<Llamada> listarPorOperadora(Long operadoraId) {
+    return repo.findByOperadoraId(operadoraId);
 }
+
+}
+
+

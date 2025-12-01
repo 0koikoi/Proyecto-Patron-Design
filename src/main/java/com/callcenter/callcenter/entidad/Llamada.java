@@ -1,6 +1,12 @@
 package com.callcenter.callcenter.entidad;
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Llamada {
@@ -13,6 +19,7 @@ public class Llamada {
     private LocalDateTime fecha;
     private String estado; //strategy
     private boolean huboVenta = false;
+    private int duracion;
 
     @ManyToOne
     //cada operadora puede tener muchas llamadas
@@ -75,4 +82,12 @@ public class Llamada {
     public void setCampana(Campana campana) {
         this.campana = campana;
     }
+
+    public int getDuracion() {
+    return duracion;
+}
+
+public void setDuracion(int duracion) {
+    this.duracion = duracion;
+}
 }
