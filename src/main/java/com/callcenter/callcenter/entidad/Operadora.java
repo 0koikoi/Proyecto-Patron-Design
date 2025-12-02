@@ -2,11 +2,11 @@ package com.callcenter.callcenter.entidad;
 import jakarta.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity //tabla
 public class Operadora {
 //la persona que atiende las llamadas
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //crea el id
     private Long id;
 
     private String nombre;
@@ -15,6 +15,7 @@ public class Operadora {
     private int totalVentas = 0;
 
     @OneToMany(mappedBy = "operadora", cascade = CascadeType.ALL)
+    //uno a muchos, puede haber una operadora para muchas llamadas
     //sabe cuántas llamadas realizó, ventas, calcula comisiones y reportes
     private List<Llamada> llamadas;
 

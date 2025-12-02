@@ -2,11 +2,11 @@ package com.callcenter.callcenter.entidad;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity //tabla
 public class Llamada {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //crea el id
     private Long id;
 
     private String tipo; //entrante o saliente

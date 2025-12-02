@@ -1,11 +1,11 @@
 package com.callcenter.callcenter.entidad;
 import jakarta.persistence.*;
 
-@Entity
+@Entity //tabla
 public class Comision {
 //pagos adicionales por venta hecha
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //crea el id
     private Long id;
 
     private double porcentaje;

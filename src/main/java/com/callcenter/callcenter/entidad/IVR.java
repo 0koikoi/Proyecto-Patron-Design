@@ -2,11 +2,11 @@ package com.callcenter.callcenter.entidad;
 import jakarta.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity //tabla
 public class IVR {
 //ayuda al flujo de llamadas, automatizando la entrada telefónica recibida
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //llave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //crea el id
     private Long id;
 
     private String mensaje;
