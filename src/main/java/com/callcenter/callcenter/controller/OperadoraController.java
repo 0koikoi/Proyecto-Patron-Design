@@ -21,9 +21,12 @@ import com.callcenter.callcenter.servicio.OperadoraServicio;
 public class OperadoraController {
 
     private final OperadoraServicio operadoraService;
+    private final LlamadaServicio llamadaService;
 
-    public OperadoraController(OperadoraServicio operadoraService) {
+    public OperadoraController(OperadoraServicio operadoraService, 
+                               LlamadaServicio llamadaService) {
         this.operadoraService = operadoraService;
+        this.llamadaService = llamadaService;
     }
 
     @GetMapping
@@ -51,18 +54,16 @@ public class OperadoraController {
         operadoraService.eliminar(id);
     }
 
-@GetMapping("/{id}/llamadas")
-public List<Llamada> listarPorOperadora(@PathVariable Long id) {
+    @GetMapping("/{id}/llamadas")
+    public List<Llamada> listarPorOperadora(@PathVariable Long id) {
 
-    // Validar si la operadora existe
-    Operadora op = operadoraService.buscarPorId(id);
-    if (op == null) {
-        throw new RuntimeException("La operadora con ID " + id + " no existe");
+        // Validar si la operadora existe
+        Operadora op = operadoraService.buscarPorId(id);
+        if (op == null) {
+            throw new RuntimeException("La operadora con ID " + id + " no existe");
+        }
+
+        // Llamar al servicio correctamente (como objeto, no como clase)
+        return llamadaService.listarPorOperadora(id);
     }
-
-    // Retornar la lista de llamadas
-    return LlamadaServicio.listarPorOperadora();
-}
-
-
 }
