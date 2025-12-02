@@ -13,6 +13,7 @@ public class Operadora {
     private String apellido;
     private String codigo;
     private int totalVentas = 0;
+    private String extension; //keyla
 
     @OneToMany(mappedBy = "operadora", cascade = CascadeType.ALL)
     //uno a muchos, puede haber una operadora para muchas llamadas
@@ -53,5 +54,13 @@ public class Operadora {
 
     public void setTotalVentas(int totalVentas) {
         this.totalVentas = totalVentas;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 }

@@ -1,78 +1,32 @@
 package com.callcenter.callcenter.entidad;
+
 import jakarta.persistence.*;
+import lombok.Data;
 import java.time.LocalDateTime;
 
-@Entity //tabla
+@Entity
+@Data //olvidé que esto hace getters y setters
 public class Llamada {
 
-    @Id //llave primaria
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //crea el id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipo; //entrante o saliente
+    private String tipo;
     private LocalDateTime fecha;
-    private String estado; //strategy
+    private String estado;
     private boolean huboVenta = false;
+    private int duracion;
 
     @ManyToOne
-    //cada operadora puede tener muchas llamadas
     @JoinColumn(name = "operadora_id")
     private Operadora operadora;
 
     @ManyToOne
-    //cada campaña puede tener muchas llamadas
     @JoinColumn(name = "campana_id")
     private Campana campana;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public boolean isHuboVenta() {
-        return huboVenta;
-    }
-
-    public void setHuboVenta(boolean huboVenta) {
-        this.huboVenta = huboVenta;
-    }
-
-    public Operadora getOperadora() {
-        return operadora;
-    }
-
-    public void setOperadora(Operadora operadora) {
-        this.operadora = operadora;
-    }
-
-    public Campana getCampana() {
-        return campana;
-    }
-
-    public void setCampana(Campana campana) {
-        this.campana = campana;
-    }
+    @ManyToOne
+    @JoinColumn(name = "ivr_actual_id")
+    private IVR ivrActual;
 }

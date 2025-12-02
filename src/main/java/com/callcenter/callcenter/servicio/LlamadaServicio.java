@@ -8,4 +8,6 @@ public interface LlamadaServicio {
     Llamada buscarPorId(Long id);
     Llamada actualizar(Long id, Llamada l);
     void eliminar(Long id);
+
+    List<Llamada> listarPorOperadora(Long operadoraId);
 }
