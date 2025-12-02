@@ -1,4 +1,4 @@
-package com.callcenter.callcenter.ivr.dto;
+package com.callcenter.callcenter.dto;
 
 public class IvrRequest {
     private String opcion;

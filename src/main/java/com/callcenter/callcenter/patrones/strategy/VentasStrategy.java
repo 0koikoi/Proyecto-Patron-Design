@@ -1,4 +1,4 @@
-package com.callcenter.callcenter.ivr.strategy;
+package com.callcenter.callcenter.patrones.strategy;
 
 public class VentasStrategy implements RespuestaStrategy {
 
