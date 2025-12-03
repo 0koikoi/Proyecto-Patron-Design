@@ -1,10 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Call Center - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .header-bg {
+            background: linear-gradient(90deg, #d32f2f 0%, #b71c1c 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light">
+
+<div class="header-bg text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold"><i class="bi bi-telephone-fill"></i> Sistema Call Center</h1>
+        <p class="lead">Plataforma de Gestión de Ventas y Atención - Proyecto Integrador</p>
+    </div>
+</div>
+
+<div class="container">
+
+    <h4 class="mb-3 text-secondary border-bottom pb-2">Gestión Operativa (Keyla)</h4>
+    <div class="row mb-4">
+
+
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 border-primary">
+                <div class="card-body text-center">
+                    <h1 class="text-primary"><i class="bi bi-headset"></i></h1>
+                    <h5 class="card-title">Operadoras</h5>
+                    <p class="card-text">Gestión del personal, altas y modificaciones.</p>
+                    <a href="/operadoras" class="btn btn-outline-primary w-100">Administrar Personal</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 border-primary">
+                <div class="card-body text-center">
+                    <h1 class="text-primary"><i class="bi bi-journal-text"></i></h1>
+                    <h5 class="card-title">Registro de Llamadas</h5>
+                    <p class="card-text">Historial de llamadas y registro manual de actividad.</p>
+                    <a href="/llamadas" class="btn btn-outline-primary w-100">Ver Historial</a>
+                    <a href="/llamadas/nueva" class="btn btn-primary w-100 mt-2">+ Nueva Llamada</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-3 text-secondary border-bottom pb-2">Gestión Comercial (Melissa)</h4>
+    <div class="row mb-4">
+
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 border-success">
+                <div class="card-body text-center">
+                    <h1 class="text-success"><i class="bi bi-megaphone"></i></h1>
+                    <h5 class="card-title">Campañas Activas</h5>
+                    <p class="card-text">Creación de campañas (Inbound/Outbound) con Factory.</p>
+                    <a href="/campanas" class="btn btn-outline-success w-100">Gestionar Campañas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card h-100 border-success">
+                <div class="card-body text-center">
+                    <h1 class="text-success"><i class="bi bi-cash-coin"></i></h1>
+                    <h5 class="card-title">Reporte de Ventas</h5>
+                    <p class="card-text">Visualización de ingresos y cálculo de comisiones (Strategy).</p>
+                    <a href="/ventas" class="btn btn-outline-success w-100">Ver Reporte Financiero</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-3 text-secondary border-bottom pb-2">Simulación y Configuración (Luis)</h4>
+    <div class="row mb-5">
+
+        <div class="col-md-8 mx-auto">
+            <div class="card border-warning shadow-sm">
+                <div class="card-body text-center bg-white">
+                    <h1 class="text-warning"><i class="bi bi-robot"></i></h1>
+                    <h3 class="card-title">Simulador IVR</h3>
+                    <p class="card-text">Prueba interactiva del árbol de decisiones telefónico y respuestas automáticas.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/ivr" class="btn btn-outline-secondary">Configurar Mensajes</a>
+                        <a href="/ivr/simulador" class="btn btn-warning btn-lg fw-bold text-dark">Abrir Teléfono</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer class="text-center py-4 text-muted bg-white border-top">
+    <p class="mb-0">Proyecto Call Center Grupo 4 - Diseño de Patrones &copy; 2025</p>
+    <small>Integrantes: Zully, Keyla, Melissa, Luis</small>
+</footer>
 
 </body>
 </html>

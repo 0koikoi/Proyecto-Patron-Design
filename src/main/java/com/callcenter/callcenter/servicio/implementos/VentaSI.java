@@ -1,8 +1,9 @@
 package com.callcenter.callcenter.servicio.implementos;
-import com.callcenter.callcenter.entidad.Campana;
+import com.callcenter.callcenter.patrones.observer.VentaEventoObserver; //importa evento
 import com.callcenter.callcenter.entidad.Venta;
 import com.callcenter.callcenter.repositorio.VentaR;
 import com.callcenter.callcenter.servicio.VentaServicio;
+import org.springframework.context.ApplicationEventPublisher; //importa publicador
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -10,9 +11,11 @@ import java.util.List;
 public class VentaSI implements VentaServicio{
 
     private final VentaR repo;
+    private final ApplicationEventPublisher publisher;
 
-    public VentaSI (VentaR repo){
+    public VentaSI (VentaR repo, ApplicationEventPublisher publisher){
         this.repo = repo;
+        this.publisher = publisher;
     }
 
     @Override
@@ -22,7 +25,10 @@ public class VentaSI implements VentaServicio{
 
     @Override
     public Venta guardar(Venta v) {
-        return repo.save(v);
+        //guarda la venta en la bd
+        Venta nuevaVenta = repo.save(v);
+        publisher.publishEvent(new VentaEventoObserver(this, "Nueva venta registrada por monto: " + v.getMonto()));
+        return nuevaVenta;
     }
 
     @Override
