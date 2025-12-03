@@ -1,4 +1,5 @@
 package com.callcenter.callcenter.entidad;
+
 import jakarta.persistence.*;
 
 @Entity //tabla
