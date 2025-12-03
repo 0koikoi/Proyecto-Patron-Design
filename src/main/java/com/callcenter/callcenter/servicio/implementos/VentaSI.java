@@ -53,4 +53,9 @@ public class VentaSI implements VentaServicio{
     public void eliminar(Long id) {
         repo.deleteById(id);
     }
+
+    @Override
+    public double calcularTotalVentas() {
+        return repo.sumarTotalVentas();
+    }
 }

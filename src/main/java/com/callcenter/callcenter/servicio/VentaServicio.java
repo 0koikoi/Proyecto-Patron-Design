@@ -8,4 +8,5 @@ public interface VentaServicio {
     Venta buscarPorId(Long id);
     Venta actualizar(Long id, Venta v);
     void eliminar(Long id);
+    double calcularTotalVentas();
 }
