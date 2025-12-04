@@ -2,15 +2,17 @@ package com.callcenter.callcenter.entidad;
 
 import java.time.LocalDateTime;
 
+import com.callcenter.callcenter.patrones.state.EstadoLlamada;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity
-
 public class Llamada {
 
     @Id
@@ -18,10 +20,19 @@ public class Llamada {
     private Long id;
 
     private String tipo;
+
     private LocalDateTime fecha;
+
+    // Este es EL ESTADO QUE SE GUARDA EN BD
     private String estado;
+
     private boolean huboVenta = false;
+
     private int duracion;
+
+    // OBJETO DEL PATRÓN STATE (no se guarda en BD)
+    @Transient
+    private EstadoLlamada estadoLlamada;
 
     @ManyToOne
     @JoinColumn(name = "operadora_id")
@@ -34,6 +45,11 @@ public class Llamada {
     @ManyToOne
     @JoinColumn(name = "ivr_actual_id")
     private IVR ivrActual;
+
+
+    // ------------------------
+    //      GETTERS / SETTERS
+    // ------------------------
 
     public Long getId() {
         return id;
@@ -81,6 +97,21 @@ public class Llamada {
 
     public void setDuracion(int duracion) {
         this.duracion = duracion;
+    }
+
+    public EstadoLlamada getEstadoLlamada() {
+        return estadoLlamada;
+    }
+
+    /**
+     * Este setter sincroniza el PATRÓN STATE con el campo "estado" que se guarda en BD
+     */
+    public void setEstadoLlamada(EstadoLlamada estadoLlamada) {
+        this.estadoLlamada = estadoLlamada;
+
+        if (estadoLlamada != null) {
+            this.estado = estadoLlamada.getNombre();
+        }
     }
 
     public Operadora getOperadora() {

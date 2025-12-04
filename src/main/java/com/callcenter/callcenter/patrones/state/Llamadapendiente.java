@@ -4,12 +4,12 @@ import com.callcenter.callcenter.entidad.Llamada;
 public class Llamadapendiente implements EstadoLlamada {
 
     @Override
-    public String nombreEstado() {
+    public String getNombre() {
         return "Pendiente";
     }
 
     @Override
-    public void manejar(Llamada llamada) {
-        System.out.println("La llamada está pendiente de ser atendida.");
+    public void siguienteEstado(Llamada llamada) {
+        llamada.setEstadoLlamada(new Llamadaenproceso());
     }
 }

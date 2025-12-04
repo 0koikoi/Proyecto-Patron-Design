@@ -2,15 +2,16 @@ package com.callcenter.callcenter.patrones.state;
 
 import com.callcenter.callcenter.entidad.Llamada;
 
-public class Llamadaenproceso implements EstadoLlamada {
+
+public class EstadoCancelado implements EstadoLlamada {
 
     @Override
     public String getNombre() {
-        return "En proceso";
+        return "CANCELADA";
     }
 
     @Override
     public void siguienteEstado(Llamada llamada) {
-        llamada.setEstadoLlamada(new Llamadafinalizada());
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
