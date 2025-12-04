@@ -4,6 +4,6 @@ public class VentasStrategy implements RespuestaStrategy {
 
     @Override
     public String responder(String opcion) {
-        return "";
+        return "Ha seleccionado Ventas. Un asesor le atenderá en breve.";
     }
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Operadora</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex align-items-center" style="min-height: 100vh;">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center py-3 rounded-top-4">
+                    <h4 class="mb-0">Registrar Operadora</h4>
+                </div>
+                <div class="card-body p-4">
+
+                    <!-- El action apunta al @PostMapping del Controller -->
+                    <form th:action="@{/operadoras/guardar}" th:object="${operadora}" method="post">
+
+                        <!-- ID Oculto (Necesario para editar) -->
+                        <input type="hidden" th:field="*{id}" />
+                        <!-- Ventas iniciales en 0 ocultas -->
+                        <input type="hidden" th:field="*{totalVentas}" />
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Nombre</label>
+                                <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: María" required />
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Apellido</label>
+                                <input type="text" th:field="*{apellido}" class="form-control" placeholder="Ej: López" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Código de Empleado</label>
+                            <div class="input-group">
+                                <span class="input-group-text">OP-</span>
+                                <input type="text" th:field="*{codigo}" class="form-control" placeholder="001" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Extensión Telefónica</label>
+                            <input type="text" th:field="*{extension}" class="form-control" placeholder="Ej: 105" required />
+                            <div class="form-text">Número interno para desvío de llamadas.</div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Guardar Operadora</button>
+                            <a href="/operadoras" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

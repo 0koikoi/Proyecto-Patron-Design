@@ -5,7 +5,7 @@ public class Llamadapendiente implements EstadoLlamada {
 
     @Override
     public String getNombre() {
-        return "Pendiente";
+        return "PENDIENTE";
     }
 
     @Override

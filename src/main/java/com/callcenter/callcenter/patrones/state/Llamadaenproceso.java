@@ -6,7 +6,7 @@ public class Llamadaenproceso implements EstadoLlamada {
 
     @Override
     public String getNombre() {
-        return "En proceso";
+        return "EN PROCESO";
     }
 
     @Override

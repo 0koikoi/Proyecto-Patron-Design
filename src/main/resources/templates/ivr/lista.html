@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta>
+    <title>Configuración IVR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item active">IVR</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-diagram-3"></i> Árbol de Respuestas (IVR)</h4>
+            <div>
+                <a th:href="@{/ivr/simulador}" class="btn btn-dark btn-sm me-2"><i class="bi bi-phone"></i> Probar Simulador</a>
+                <a th:href="@{/ivr/nueva}" class="btn btn-light btn-sm fw-bold">+ Nueva Opción</a>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="alert alert-info m-3" role="alert">
+                <i class="bi bi-info-circle"></i> Estas son las opciones que responderá el <strong>Patrón Strategy</strong>.
+            </div>
+            <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código (Tecla)</th>
+                    <th>Mensaje de Respuesta</th>
+                    <th>Menú Padre</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="op : ${listaOpciones}">
+                    <td th:text="${op.id}">1</td>
+                    <td><span class="badge bg-secondary fs-6" th:text="${op.codigo}">1</span></td>
+                    <td th:text="${op.mensaje}">Bienvenido...</td>
+                    <!-- Mostramos si tiene padre (Composite) -->
+                    <td th:text="${op.padre != null ? op.padre.codigo : 'Raíz (Inicio)'}">Raíz</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -19,18 +19,38 @@ public class OperadoraController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("operadoras", servicio.listar());
-        return "operadoras/lista"; // TODO:  crear templates/operadoras/lista.html
+        return "operadoras/lista";
     }
 
     @GetMapping("/nueva")
     public String mostrarFormulario(Model model) {
         model.addAttribute("operadora", new Operadora());
-        return "operadoras/form"; // TODO: crear templates/operadoras/form.html
+        return "operadoras/form";
     }
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Operadora operadora) {
-        servicio.guardar(operadora);
+        // Si tiene ID, el servicio sabe que debe actualizar. Si no, crea.
+        if (operadora.getId() != null) {
+            servicio.actualizar(operadora.getId(), operadora);
+        } else {
+            servicio.guardar(operadora);
+        }
+        return "redirect:/operadoras";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        Operadora op = servicio.buscarPorId(id);
+        if (op == null) return "redirect:/operadoras"; // Protección
+
+        model.addAttribute("operadora", op);
+        return "operadoras/form"; // Reutilizamos el mismo formulario
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id) {
+        servicio.eliminar(id);
         return "redirect:/operadoras";
     }
 }

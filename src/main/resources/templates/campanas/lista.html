@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Campañas Activas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Campañas</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm border-0 border-top border-success border-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 text-success"><i class="bi bi-megaphone"></i> Campañas Activas</h4>
+            <a th:href="@{/campanas/nueva}" class="btn btn-success text-white">+ Nueva Campaña</a>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Objetivo</th>
+                    <th>Script Generado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${campanas}">
+                    <td th:text="${c.id}">1</td>
+                    <td class="fw-bold" th:text="${c.nombre}">Navidad</td>
+                    <td><span class="badge bg-success" th:text="${c.tipo}">Venta</span></td>
+
+                    <!--estos campos se llenaron solos gracias al factory-->
+                    <td class="small text-muted" th:text="${c.objetivo}">Objetivo...</td>
+                    <td class="fst-italic small" th:text="${c.script}">"Hola..."</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

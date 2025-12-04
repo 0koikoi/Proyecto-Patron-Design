@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Financiero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Ventas</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm border-0 border-top border-warning border-4">
+        <div class="card-header bg-white py-3">
+            <h4 class="mb-0 text-dark"><i class="bi bi-cash-coin"></i> Reporte de Ventas y Comisiones</h4>
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo Servicio</th>
+                    <th>Monto Venta</th>
+                    <th>ID Llamada Origen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="v : ${listaVentas}">
+                    <td th:text="${v.id}">1</td>
+                    <td><span class="badge bg-primary" th:text="${v.tipoServicio}">Fibra Óptica</span></td>
+                    <td class="fw-bold text-success" th:text="'S/ ' + ${v.monto}">S/ 100.0</td>
+                    <!-- Navegamos al objeto llamada para mostrar su ID o fecha -->
+                    <td th:text="${v.llamada != null ? 'Llamada #' + v.llamada.id : 'N/A'}">#12</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(listaVentas)}">
+                    <td colspan="4" class="text-center py-4 text-muted">Aún no hay ventas registradas.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- EL TOTAL RECAUDADO (Calculado en el Servicio) -->
+        <div class="card-footer bg-white py-3">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <h5 class="text-muted">Total Recaudado Global</h5>
+                    <h2 class="text-success fw-bold display-6" th:text="'S/ ' + ${montoTotal}">S/ 0.00</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

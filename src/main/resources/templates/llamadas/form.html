@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nueva Llamada</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex align-items-center" style="min-height: 100vh;">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Registrar Nueva Llamada</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/llamadas/guardar}" th:object="${llamada}" method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tipo de Llamada</label>
+                            <select th:field="*{tipo}" class="form-select">
+                                <option value="Entrante">Entrante (Inbound)</option>
+                                <option value="Saliente">Saliente (Outbound)</option>
+                            </select>
+                        </div>
+
+                        <!-- SELECTOR DE OPERADORAS -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Asignar Operadora</label>
+                            <select th:field="*{operadora}" class="form-select" required>
+                                <option value="">-- Seleccione una Operadora --</option>
+                                <!-- Iteramos la lista que mandó el Controller -->
+                                <option th:each="op : ${listaOperadoras}"
+                                        th:value="${op.id}"
+                                        th:text="${op.codigo + ' - ' + op.nombre + ' ' + op.apellido}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- SELECTOR DE CAMPAÑAS -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Asignar Campaña</label>
+                            <select th:field="*{campana}" class="form-select" required>
+                                <option value="">-- Seleccione Campaña --</option>
+                                <option th:each="cam : ${listaCampanas}"
+                                        th:value="${cam.id}"
+                                        th:text="${cam.nombre + ' (' + cam.tipo + ')'}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Duración Estimada (seg)</label>
+                            <input type="number" th:field="*{duracion}" class="form-control" value="0">
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+<!--                            estado pendiente y cancelar llamads-->
+                            <button type="submit" class="btn btn-primary">Iniciar Llamada</button>
+                            <a href="/llamadas" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

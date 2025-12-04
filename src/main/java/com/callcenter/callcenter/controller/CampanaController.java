@@ -14,7 +14,7 @@ public class CampanaController {
     private final CampanaServicio servicio;
     private final CampanaFactory factory;
 
-    // CORRECCIÓN 1: Inyectar el factory en los parámetros
+    //inyección de factory en los parámetros
     public CampanaController(CampanaServicio servicio, CampanaFactory factory) {
         this.servicio = servicio;
         this.factory = factory;
@@ -34,14 +34,13 @@ public class CampanaController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Campana campanaDesdeFormulario) {
-        // CORRECCIÓN 2: Extraer nombre y tipo del objeto que viene del HTML
         String nombre = campanaDesdeFormulario.getNombre();
         String tipo = campanaDesdeFormulario.getTipo();
 
-        // Usamos el Factory para crear la campaña con su script automático
+        //uso del factory para un script automático para el operador
         Campana nuevaCampana = factory.crearCampana(nombre, tipo);
 
-        // Guardamos en BD
+        //guarda en la bd
         servicio.guardar(nuevaCampana);
 
         return "redirect:/campanas";

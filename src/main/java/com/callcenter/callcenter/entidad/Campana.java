@@ -4,7 +4,7 @@ import java.util.List;
 
 @Entity //tabla
 public class Campana {
-//campaña
+    //campaña
 //organizar las llamadas
     @Id //llave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) //crea el id
@@ -17,10 +17,19 @@ public class Campana {
     private String script;
     private String objetivo;
 
-    @OneToMany(mappedBy = "campana", cascade = CascadeType.ALL) //si se borra una campaña, borra sus llamadas por cascada
+    @OneToMany(mappedBy = "campana", cascade = CascadeType.ALL)
+    //si se borra una campaña, borra sus llamadas por cascada
     //una campaña puede tener muchas llamadas
 
     private List<Llamada> llamadas; //asocia la lista de
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;
@@ -38,9 +47,16 @@ public class Campana {
         this.tipo = tipo;
     }
 
-    // También agrega estos dos por si acaso el Factory los pide:
+    public String getScript() {
+        return script;
+    }
+
     public void setScript(String script) {
         this.script = script;
+    }
+
+    public String getObjetivo() {
+        return objetivo;
     }
 
     public void setObjetivo(String objetivo) {

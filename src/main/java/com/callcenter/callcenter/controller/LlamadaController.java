@@ -1,13 +1,9 @@
 package com.callcenter.callcenter.controller;
 
 import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.callcenter.callcenter.entidad.Llamada;
 import com.callcenter.callcenter.servicio.CampanaServicio;
@@ -22,7 +18,6 @@ public class LlamadaController {
     private final OperadoraServicio operadoraServicio;
     private final CampanaServicio campanaServicio;
 
-    /*hace llamado a Operadora y Campaña para el registro de llamada*/
     public LlamadaController(LlamadaServicio ls, OperadoraServicio os, CampanaServicio cs) {
         this.llamadaServicio = ls;
         this.operadoraServicio = os;
@@ -38,11 +33,10 @@ public class LlamadaController {
     @GetMapping("/nueva")
     public String nuevaLlamada(Model model) {
         Llamada llamada = new Llamada();
-        llamada.setFecha(LocalDateTime.now()); //fecha de llamada
-        llamada.setEstado("INICIADA"); // el estado inicial, patrón STATE entra desde acá
+        llamada.setFecha(LocalDateTime.now());
 
+        // El estado inicial lo maneja el servicio, pero lo mostramos vacío aquí
         model.addAttribute("llamada", llamada);
-        //listas para el select html
         model.addAttribute("listaOperadoras", operadoraServicio.listar());
         model.addAttribute("listaCampanas", campanaServicio.listar());
 
@@ -51,10 +45,28 @@ public class LlamadaController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Llamada llamada) {
-        //TODO: revisar si entra factory o state
-        llamadaServicio.guardar(llamada);
+        // LOGICA STATE: Si es nueva, iniciamos el flujo. Si existe, actualizamos.
+        if (llamada.getId() == null) {
+            llamadaServicio.iniciarLlamada(llamada);
+        } else {
+            llamadaServicio.guardar(llamada);
+        }
         return "redirect:/llamadas";
     }
 
-    
+    // --- NUEVO: TRANSICIONES DE ESTADO (State Pattern) ---
+
+    @GetMapping("/contestar/{id}")
+    public String contestar(@PathVariable Long id) {
+        // PENDIENTE -> EN PROGRESO
+        llamadaServicio.marcarEnProgreso(id);
+        return "redirect:/llamadas";
+    }
+
+    @GetMapping("/finalizar/{id}")
+    public String finalizar(@PathVariable Long id) {
+        // EN PROGRESO -> FINALIZADA
+        llamadaServicio.marcarFinalizada(id);
+        return "redirect:/llamadas";
+    }
 }

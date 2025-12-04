@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Llamadas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+    <body class="bg-light">
+
+    <div class="container mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                <li class="breadcrumb-item active">Llamadas</li>
+            </ol>
+        </nav>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h4 class="mb-0 text-primary"><i class="bi bi-telephone-outbound"></i> Registro de Llamadas</h4>
+                <a th:href="@{/llamadas/nueva}" class="btn btn-primary">+ Registrar Llamada</a>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Operadora</th> <!-- Aquí mostramos el nombre, no el ID -->
+                        <th>Campaña</th>
+                        <th>Estado</th>
+                        <th>Duración</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="llamada : ${llamadas}">
+                        <td th:text="${llamada.id}">1</td>
+                        <td th:text="${#temporals.format(llamada.fecha, 'dd-MM-yyyy HH:mm')}">Fecha</td>
+                        <td>
+                            <span th:if="${llamada.tipo == 'Entrante'}" class="badge bg-info">Entrante</span>
+                            <span th:if="${llamada.tipo == 'Saliente'}" class="badge bg-warning text-dark">Saliente</span>
+                        </td>
+                        <!-- Navegación de objetos: llamada.operadora.nombre -->
+                        <td th:text="${llamada.operadora != null ? (llamada.operadora.nombre + ' ' + llamada.operadora.apellido) : 'Sin Asignar'}">Ana</td>
+                        <td th:text="${llamada.campana != null ? llamada.campana.nombre : 'General'}">Ventas</td>
+
+                        <!-- Estado del Patrón State -->
+                        <td><span class="badge bg-secondary" th:text="${llamada.estado}">FINALIZADA</span></td>
+
+                        <td th:text="${llamada.duracion + ' seg'}">120 seg</td>
+                        <td>
+                            <!-- Botón Contestar: Solo aparece si el estado es PENDIENTE -->
+                            <a th:if="${llamada.estado == 'PENDIENTE'}"
+                               th:href="@{/llamadas/contestar/{id}(id=${llamada.id})}"
+                               class="btn btn-sm btn-outline-primary" title="Contestar">
+                                <i class="bi bi-telephone-fill"></i> Contestar
+                            </a>
+
+                            <!-- Botón Finalizar: Solo aparece si el estado es EN_PROGRESO -->
+                            <a th:if="${llamada.estado == 'EN_PROGRESO'}"
+                               th:href="@{/llamadas/finalizar/{id}(id=${llamada.id})}"
+                               class="btn btn-sm btn-outline-danger" title="Finalizar">
+                                <i class="bi bi-telephone-x"></i> Colgar
+                            </a>
+
+                            <!-- Icono de completado si ya terminó -->
+                            <span th:if="${llamada.estado == 'FINALIZADA'}" class="text-muted small">
+        <i class="bi bi-check-circle-fill text-success"></i> Terminada
+    </span>
+                        </td>
+                    </tr>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(llamadas)}">
+                        <td colspan="7" class="text-center py-4">No hay llamadas registradas.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>

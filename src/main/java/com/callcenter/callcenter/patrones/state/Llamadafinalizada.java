@@ -6,7 +6,7 @@ public class Llamadafinalizada implements EstadoLlamada {
 
     @Override
     public String getNombre() {
-        return "Finalizada";
+        return "FINALIZADA";
     }
 
     @Override
