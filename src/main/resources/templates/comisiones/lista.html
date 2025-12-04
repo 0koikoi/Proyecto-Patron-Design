@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reporte de Comisiones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Comisiones</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm border-0 border-top border-warning border-4">
+        <div class="card-header bg-warning text-dark py-3 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-gift-fill"></i> Reporte de Comisiones</h4>
+            <a th:href="@{/comisiones/nueva}" class="btn btn-dark">+ Registrar Comisión</a>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="alert alert-info m-3" role="alert">
+                <i class="bi bi-info-circle"></i> Aquí se registra la bonificación extra por ventas exitosas.
+            </div>
+            <table class="table table-striped mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Operadora</th>
+                    <th>% Comisión</th>
+                    <th>Monto Total</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iteramos sobre la lista 'comisiones' que envía el Controller -->
+                <tr th:each="c : ${comisiones}">
+                    <td th:text="${c.id}">1</td>
+
+                    <!-- Navegamos al objeto Operadora asociado a la comisión -->
+                    <td th:text="${c.operadora != null ? (c.operadora.nombre + ' ' + c.operadora.apellido) : 'Sin Asignar'}">Ana Pérez</td>
+
+                    <td th:text="${#numbers.formatDecimal(c.porcentaje, 1, 2) + '%'}">10.00%</td>
+
+                    <td class="fw-bold text-success" th:text="'S/ ' + ${#numbers.formatDecimal(c.totalComision, 1, 2)}">S/ 50.00</td>
+
+                    <td>
+                        <!-- Botones de acción, puedes agregar editar/eliminar si el controlador lo soporta -->
+                        <a th:href="@{/comisiones/eliminar/{id}(id=${c.id})}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('¿Eliminar comisión?');">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(comisiones)}">
+                    <td colspan="5" class="text-center py-4 text-muted">No hay comisiones registradas.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

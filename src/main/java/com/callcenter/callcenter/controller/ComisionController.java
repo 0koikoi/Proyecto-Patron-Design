@@ -44,4 +44,10 @@ public class ComisionController{
         servicio.eliminar(id);
         return "redirect:/comisiones";
     }
+
+    @GetMapping("/nueva")
+    public String mostrarFormulario(Model model) {
+        model.addAttribute("comision", new Comision());
+        return "comisiones/form";
+    }
 }
